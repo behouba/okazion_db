@@ -259,17 +259,30 @@ CREATE TABLE search
     keyword VARCHAR NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 )
-CREATE TABLE deleted_message(
+CREATE TABLE deleted_message
+(
+    deleted_message_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(user_id),
+    data JSON NOT NULL
+)
+
+CREATE TABLE job_application
+(
+    job_application_id SERIAL PRIMARY KEY,
+    applicant_id INTEGER REFERENCES users(user_id),
+    employer_id INTEGER REFERENCES users(user_id),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    cv_url VARCHAR NOT NULL,
+    data JSON NOT NULL
 
 )
 
-CREATE TABLE job_application(
-
+/*CREATE TABLE tag
+(
+    tag_id BIGSERIAL PRIMARY KEY,
+    tag VARCHAR NOT NULL
 )
-
-CREATE TABLE tag(
-
-)
+*/
 
 CREATE TABLE verified_user
 (
